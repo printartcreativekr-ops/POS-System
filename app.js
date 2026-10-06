@@ -217,42 +217,45 @@ async function getNextTransactionNumber(){
 }
 function buildReceipt(t){
 
+  // Receipt-specific money format.
+  // We intentionally use "PHP" instead of "₱"
+  // because the thermal printer may not support the ₱ character.
+  const receiptMoney = n => `PHP ${Number(n || 0).toFixed(2)}`;
+
   const itemRows = (t.items || []).map(x => `
-    <div class="item">
-
-      <div class="item-name">
-        ${esc(x.name)}
-      </div>
-
-      <div class="item-detail">
-        ${x.quantity} × ${money(x.price)}
-        = ${money(x.price * x.quantity)}
-      </div>
-
+    <div class="receipt-item">
+      <span class="receipt-item-name">
+        ${esc(x.quantity)} x ${receiptMoney(x.price)}
+      </span>
     </div>
   `).join("");
 
   $("receiptPrintArea").innerHTML = `
-  
-<!-- COMPANY NAME -->
-<div class="receipt-company">
-  PRINTART CREATIVE
-</div>
-<div class="receipt-company">
-  GRAPHIC & SIGNS
-</div>
-<br>
+
+    <!-- COMPANY HEADER -->
+    <div class="receipt-company">
+      PRINTART CREATIVE
+    </div>
+
+    <div class="receipt-subtitle">
+      GRAPHIC & SIGNS
+    </div>
+
+    <!-- COMPANY INFORMATION -->
     <div class="receipt-address">
-      C' Arcade Building, Unit 9 2/F
+      C'Arcade Building,Unit 9,2/F
     </div>
 
     <div class="receipt-address">
       Camachiles, Mabalacat City
     </div>
-    <div class="receipt-contact">
+
+    <div class="receipt-address">
       Pampanga
     </div>
-<br>
+
+    <div class="receipt-spacer"></div>
+
     <div class="receipt-contact">
       Viber: 0961-517-9028
     </div>
@@ -260,97 +263,69 @@ function buildReceipt(t){
     <div class="receipt-contact">
       printartcreative.kr@gmail.com
     </div>
-    <div class="line"></div>
-<br>
-  <!-- RECEIPT TITLE -->
-<div class="receipt-title">
-  OFFICIAL RECEIPT TRANSACTION
-</div>
-<br>
-      <div class="bold">
-        ${esc(t.transaction_number)}
-      </div>
 
-      <div>
-        ${formatDateTime(t.created_at)}
-      </div>
-<br>
-      <div>
-        CUSTOMER
-      </div>
+    <div class="receipt-line"></div>
 
-      <div class="bold">
-        ${esc(t.customer_name)}
-      </div>
-
+    <!-- CUSTOMER -->
+    <div class="receipt-section-title">
+      CUSTOMER:
     </div>
 
-    <div class="line"></div>
-<br>
+    <div class="receipt-customer">
+      ${esc(t.customer_name || "Walk-in Customer")}
+    </div>
+
+    <div class="receipt-spacer"></div>
+
     <!-- ITEMS -->
-    <div class="items">
-
+    <div class="receipt-items">
       ${itemRows}
-
     </div>
 
-    <div class="line"></div>
-<br>
+    <div class="receipt-line"></div>
+
     <!-- TOTAL -->
-    <div class="total-box">
-
-      <span class="total-label">
-        TOTAL
-      </span>
-
-      <span class="total-amount">
-        ${money(t.total)}
-      </span>
-
+    <div class="receipt-row receipt-total-row">
+      <span>TOTAL:</span>
+      <span>${receiptMoney(t.total)}</span>
     </div>
 
-    <div class="line"></div>
-<br>
+    <div class="receipt-line"></div>
+
     <!-- PAYMENT -->
-    <div class="payment-section">
+    <div class="receipt-payment">
 
-      <div>
-        PAYMENT METHOD
+      <div class="receipt-row">
+        <span>PAYMENT:</span>
+        <span>${esc(t.payment_method || "")}</span>
       </div>
 
-      <div class="bold">
-        ${esc(t.payment_method)}
+      <div class="receipt-spacer"></div>
+
+      <div class="receipt-row">
+        <span>AMOUNT PAID:</span>
+        <span>${receiptMoney(t.amount_received)}</span>
       </div>
 
-      <div>
-        AMOUNT PAID
-      </div>
+      <div class="receipt-spacer"></div>
 
-      <div class="bold">
-        ${money(t.amount_received)}
-      </div>
-
-      <div>
-        CHANGE
-      </div>
-
-      <div class="bold">
-        ${money(t.change_amount)}
+      <div class="receipt-row">
+        <span>CHANGE:</span>
+        <span>${receiptMoney(t.change_amount)}</span>
       </div>
 
     </div>
 
-    <div class="line"></div>
-<br>
+    <div class="receipt-line"></div>
+
     <!-- THANK YOU -->
-    <div class="thanks">
-      THANK YOU!
+    <div class="receipt-thanks">
+      <div>THANK YOU!</div>
+      <div>Please come again.</div>
     </div>
 
-    <div class="footer">
-      Please come again.
-    </div>
-
+  `;
+}
     <div class="footer">
       PRINTART CREATIVE GRAPHIC AND SIGNS
     </div>
