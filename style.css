@@ -1,4 +1,6 @@
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
 
 body{
   margin:0;
@@ -549,9 +551,10 @@ th{
   margin-top:8px
 }
 
+
 /* =========================================================
-   RECEIPT
-   Only receipt printing styles are revised below.
+   RECEIPT PRINT AREA
+   Hidden during normal POS operation
    ========================================================= */
 
 .receipt-print{
@@ -560,154 +563,7 @@ th{
 
 
 /* =========================================================
-   THERMAL RECEIPT PRINT
-   ========================================================= */
-
-@media print{
-
-  body>*:not(#receiptPrintArea){
-    display:none!important
-  }
-
-  .receipt-print{
-    display:block!important;
-    width:58mm;
-    margin:0;
-    padding:0 2mm;
-    font-family:"Courier New",monospace;
-    font-size:10pt;
-    color:#000
-  }
-
-  .receipt-print *{
-    color:#000!important
-  }
-
-  /* GENERAL CENTER ALIGNMENT */
-  .receipt-print .center{
-    text-align:center
-  }
-
-  /* =====================================================
-     LOGO
-     ===================================================== */
-
-  .receipt-print .logo{
-    display:block;
-    width:100%;
-    text-align:center;
-    font-size:14pt;
-    font-weight:900;
-    margin:0 auto 5px auto
-  }
-
-  .receipt-print .logo img{
-    display:block;
-    margin:0 auto;
-    max-width:40mm;
-    max-height:20mm;
-    object-fit:contain
-  }
-
-  /* =====================================================
-     COMPANY NAME
-     PRINTART CREATIVE GRAPHIC AND SIGNS
-     ===================================================== */
-
-  .receipt-print .receipt-company{
-    width:100%;
-    text-align:center;
-    font-size:10pt;
-    font-weight:900;
-    line-height:1.2;
-    margin:0 auto 5px auto
-  }
-
-  /* =====================================================
-     RECEIPT TITLE
-     OFFICIAL RECEIPT TRANSACTION
-     ===================================================== */
-
-  .receipt-print .receipt-title{
-    width:100%;
-    text-align:center;
-    font-size:11pt;
-    font-weight:900;
-    line-height:1.2;
-    margin:5px auto
-  }
-
-  /* =====================================================
-     TEXT
-     ===================================================== */
-
-  .receipt-print .bold{
-    font-weight:700
-  }
-
-  /* =====================================================
-     DIVIDER
-     ===================================================== */
-
-  .receipt-print .line{
-    border-top:1px dashed #000;
-    margin:5px 0
-  }
-
-  /* =====================================================
-     ROW
-     ===================================================== */
-
-  .receipt-print .r{
-    display:flex;
-    justify-content:space-between;
-    gap:5px
-  }
-
-  /* =====================================================
-     ITEMS
-     ===================================================== */
-
-  .receipt-print .items{
-    margin:5px 0
-  }
-
-  .receipt-print .item-name{
-    max-width:34mm;
-    overflow:hidden
-  }
-
-  /* =====================================================
-     TOTAL
-     ===================================================== */
-
-  .receipt-print .total{
-    font-size:13pt;
-    font-weight:700
-  }
-
-  /* =====================================================
-     THANK YOU
-     ===================================================== */
-
-  .receipt-print .thanks{
-    margin-top:10px;
-    text-align:center
-  }
-
-  /* =====================================================
-     PAPER SIZE
-     ===================================================== */
-
-  @page{
-    size:58mm auto;
-    margin:0
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE
+   RESPONSIVE POS
    ========================================================= */
 
 @media(max-width:1000px){
@@ -719,6 +575,7 @@ th{
   .stat-grid{
     grid-template-columns:repeat(2,1fr)
   }
+
 }
 
 
@@ -752,4 +609,357 @@ th{
     align-items:stretch;
     flex-direction:column
   }
+
+}
+
+
+/* =========================================================
+   PRINTART POS - 58MM THERMAL RECEIPT
+   ========================================================= */
+
+@media print{
+
+  /* Hide the entire POS interface */
+  body>*:not(#receiptPrintArea){
+    display:none!important
+  }
+
+  /* =======================================================
+     MAIN RECEIPT
+     ======================================================= */
+
+  .receipt-print{
+    display:block!important;
+
+    width:58mm!important;
+    max-width:58mm!important;
+
+    margin:0!important;
+    padding:0 2mm!important;
+
+    font-family:"Courier New",Courier,monospace!important;
+    font-size:10pt!important;
+    line-height:1.15!important;
+    font-weight:400!important;
+
+    color:#000!important;
+    background:#fff!important;
+
+    text-align:left!important;
+
+    box-sizing:border-box!important;
+  }
+
+
+  /* Force all receipt elements to use thermal-printer font */
+  .receipt-print *{
+    box-sizing:border-box!important;
+
+    color:#000!important;
+
+    font-family:"Courier New",Courier,monospace!important;
+  }
+
+
+  /* =======================================================
+     COMPANY NAME
+     ======================================================= */
+
+  .receipt-company{
+    width:100%!important;
+
+    text-align:center!important;
+
+    font-size:11pt!important;
+    font-weight:700!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     GRAPHIC & SIGNS
+     ======================================================= */
+
+  .receipt-subtitle{
+    width:100%!important;
+
+    text-align:center!important;
+
+    font-size:10pt!important;
+    font-weight:700!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     ADDRESS
+     ======================================================= */
+
+  .receipt-address{
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     CONTACT INFORMATION
+     ======================================================= */
+
+  .receipt-contact{
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     SPACING
+     ======================================================= */
+
+  .receipt-spacer{
+    height:9px!important;
+
+    line-height:9px!important;
+  }
+
+
+  /* =======================================================
+     DASHED SEPARATOR
+     ======================================================= */
+
+  .receipt-line{
+    width:100%!important;
+
+    border-top:1px dashed #000!important;
+
+    height:0!important;
+
+    margin:8px 0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     CUSTOMER LABEL
+     ======================================================= */
+
+  .receipt-section-title{
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+    font-weight:700!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     CUSTOMER NAME
+     ======================================================= */
+
+  .receipt-customer{
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     ITEMS
+     ======================================================= */
+
+  .receipt-items{
+    width:100%!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  .receipt-item{
+    width:100%!important;
+
+    margin:0!important;
+    padding:0!important;
+
+    line-height:1.15!important;
+  }
+
+
+  /* Product name */
+  .receipt-item-product{
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.15!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* Quantity x price */
+  .receipt-item-name{
+    display:block!important;
+
+    width:100%!important;
+
+    text-align:left!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.15!important;
+
+    white-space:nowrap!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     TOTAL / PAYMENT ROWS
+     ======================================================= */
+
+  .receipt-row{
+    width:100%!important;
+
+    display:flex!important;
+
+    justify-content:space-between!important;
+    align-items:flex-start!important;
+
+    gap:8px!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.2!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* Left side of row */
+  .receipt-row span:first-child{
+    text-align:left!important;
+
+    white-space:nowrap!important;
+  }
+
+
+  /* Right side of row */
+  .receipt-row span:last-child{
+    text-align:right!important;
+
+    white-space:nowrap!important;
+
+    margin-left:auto!important;
+  }
+
+
+  /* =======================================================
+     TOTAL
+     ======================================================= */
+
+  .receipt-total-row{
+    font-weight:700!important;
+
+    font-size:10pt!important;
+  }
+
+
+  /* =======================================================
+     PAYMENT SECTION
+     ======================================================= */
+
+  .receipt-payment{
+    width:100%!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  /* =======================================================
+     THANK YOU
+     ======================================================= */
+
+  .receipt-thanks{
+    width:100%!important;
+
+    text-align:center!important;
+
+    font-size:9.5pt!important;
+
+    line-height:1.2!important;
+
+    margin:0!important;
+    padding:0!important;
+  }
+
+
+  .receipt-thanks div:first-child{
+    font-weight:700!important;
+  }
+
+
+  /* =======================================================
+     THERMAL PAPER PAGE
+     ======================================================= */
+
+  @page{
+    size:58mm auto;
+    margin:0;
+  }
+
+
+  html,
+  body{
+    width:58mm!important;
+
+    margin:0!important;
+    padding:0!important;
+
+    background:#fff!important;
+  }
+
 }
