@@ -216,25 +216,169 @@ async function getNextTransactionNumber(){
   return data;
 }
 function buildReceipt(t){
-  const itemRows=(t.items||[]).map(x=>`
-    <div class="r"><span class="item-name">${esc(x.name)} x${x.quantity}</span><span>${money(x.price*x.quantity)}</span></div>`).join("");
-  $("receiptPrintArea").innerHTML=`
-    <div class="center logo">PRINTART CREATIVE</div>
-    <div class="center bold">GRAPHICS & SIGNS</div>
-    <div class="center">Mabalacat City, Pampanga</div>
+
+  const itemRows = (t.items || []).map(x => `
+    <div class="item">
+
+      <div class="item-name">
+        ${esc(x.name)}
+      </div>
+
+      <div class="item-detail">
+        ${x.quantity} × ${money(x.price)}
+        = ${money(x.price * x.quantity)}
+      </div>
+
+    </div>
+  `).join("");
+
+  $("receiptPrintArea").innerHTML = `
+
+    <!-- COMPANY LOGO -->
+    <img
+      src="logo.png"
+      class="receipt-logo"
+      alt="PrintArt Creative Logo"
+    >
+
+    <!-- COMPANY NAME -->
+    <div class="receipt-company">
+      PRINTART CREATIVE
+    </div>
+
+    <div class="receipt-subtitle">
+      GRAPHICS & SIGNS
+    </div>
+
+    <div class="receipt-address">
+      C' Arcade Building, Unit 9 2/F
+    </div>
+
+    <div class="receipt-address">
+      Camachiles, Mabalacat City
+    </div>
+
+    <div class="receipt-contact">
+      Pampanga
+    </div>
+
+    <div class="receipt-contact">
+      Viber: 0961-517-9028
+    </div>
+
+    <div class="receipt-contact">
+      printartcreative.kr@gmail.com
+    </div>
+
     <div class="line"></div>
-    <div class="r"><span>TXN #</span><span>${esc(t.transaction_number)}</span></div>
-    <div class="r"><span>Date</span><span>${formatDateTime(t.created_at)}</span></div>
-    <div class="r"><span>Customer</span><span>${esc(t.customer_name)}</span></div>
+
+    <!-- RECEIPT TITLE -->
+    <div class="receipt-title">
+      OFFICIAL RECEIPT
+    </div>
+
     <div class="line"></div>
-    <div class="items">${itemRows}</div>
+
+    <!-- TRANSACTION INFORMATION -->
+    <div class="receipt-info">
+
+      <div>
+        TRANSACTION
+      </div>
+
+      <div class="bold">
+        ${esc(t.transaction_number)}
+      </div>
+
+      <div>
+        ${formatDateTime(t.created_at)}
+      </div>
+
+      <div>
+        CUSTOMER
+      </div>
+
+      <div class="bold">
+        ${esc(t.customer_name)}
+      </div>
+
+    </div>
+
     <div class="line"></div>
-    <div class="r total"><span>TOTAL</span><span>${money(t.total)}</span></div>
-    <div class="r"><span>Payment</span><span>${esc(t.payment_method)}</span></div>
-    <div class="r"><span>Paid</span><span>${money(t.amount_received)}</span></div>
-    <div class="r"><span>Change</span><span>${money(t.change_amount)}</span></div>
+
+    <!-- ITEMS -->
+    <div class="items">
+
+      ${itemRows}
+
+    </div>
+
     <div class="line"></div>
-    <div class="thanks">THANK YOU!</div>`;
+
+    <!-- TOTAL -->
+    <div class="total-box">
+
+      <span class="total-label">
+        TOTAL
+      </span>
+
+      <span class="total-amount">
+        ${money(t.total)}
+      </span>
+
+    </div>
+
+    <div class="line"></div>
+
+    <!-- PAYMENT -->
+    <div class="payment-section">
+
+      <div>
+        PAYMENT METHOD
+      </div>
+
+      <div class="bold">
+        ${esc(t.payment_method)}
+      </div>
+
+      <div>
+        AMOUNT PAID
+      </div>
+
+      <div class="bold">
+        ${money(t.amount_received)}
+      </div>
+
+      <div>
+        CHANGE
+      </div>
+
+      <div class="bold">
+        ${money(t.change_amount)}
+      </div>
+
+    </div>
+
+    <div class="line"></div>
+
+    <!-- THANK YOU -->
+    <div class="thanks">
+      THANK YOU!
+    </div>
+
+    <div class="footer">
+      Please come again.
+    </div>
+
+    <div class="footer">
+      PRINTART CREATIVE
+    </div>
+
+    <div class="footer">
+      Creative Graphics & Signs
+    </div>
+
+  `;
 }
 
 async function loadDashboard(){
