@@ -234,22 +234,16 @@ function buildReceipt(t){
 
   $("receiptPrintArea").innerHTML = `
 
-    <!-- COMPANY LOGO -->
-    <img
-      src="logo.png"
-      class="receipt-logo"
-      alt="PrintArt Creative Logo"
-    >
+   <!-- COMPANY LOGO -->
+<img src="logo.png"
+  class="receipt-logo"
+  alt="PrintArt Creative Logo">
 
-    <!-- COMPANY NAME -->
-    <div class="receipt-company">
-      PRINTART CREATIVE
-    </div>
-
-    <div class="receipt-subtitle">
-      GRAPHICS & SIGNS
-    </div>
-
+<!-- COMPANY NAME -->
+<div class="receipt-company">
+  PRINTART CREATIVE GRAPHIC & SIGNS
+</div>
+<br>
     <div class="receipt-address">
       C' Arcade Building, Unit 9 2/F
     </div>
@@ -257,11 +251,10 @@ function buildReceipt(t){
     <div class="receipt-address">
       Camachiles, Mabalacat City
     </div>
-
     <div class="receipt-contact">
       Pampanga
     </div>
-
+<br>
     <div class="receipt-contact">
       Viber: 0961-517-9028
     </div>
@@ -269,23 +262,13 @@ function buildReceipt(t){
     <div class="receipt-contact">
       printartcreative.kr@gmail.com
     </div>
-
     <div class="line"></div>
-
-    <!-- RECEIPT TITLE -->
-    <div class="receipt-title">
-      OFFICIAL RECEIPT
-    </div>
-
-    <div class="line"></div>
-
-    <!-- TRANSACTION INFORMATION -->
-    <div class="receipt-info">
-
-      <div>
-        TRANSACTION
-      </div>
-
+<br>
+  <!-- RECEIPT TITLE -->
+<div class="receipt-title">
+  OFFICIAL RECEIPT TRANSACTION
+</div>
+<br>
       <div class="bold">
         ${esc(t.transaction_number)}
       </div>
@@ -293,7 +276,7 @@ function buildReceipt(t){
       <div>
         ${formatDateTime(t.created_at)}
       </div>
-
+<br>
       <div>
         CUSTOMER
       </div>
@@ -305,7 +288,7 @@ function buildReceipt(t){
     </div>
 
     <div class="line"></div>
-
+<br>
     <!-- ITEMS -->
     <div class="items">
 
@@ -314,7 +297,7 @@ function buildReceipt(t){
     </div>
 
     <div class="line"></div>
-
+<br>
     <!-- TOTAL -->
     <div class="total-box">
 
@@ -329,7 +312,7 @@ function buildReceipt(t){
     </div>
 
     <div class="line"></div>
-
+<br>
     <!-- PAYMENT -->
     <div class="payment-section">
 
@@ -360,7 +343,7 @@ function buildReceipt(t){
     </div>
 
     <div class="line"></div>
-
+<br>
     <!-- THANK YOU -->
     <div class="thanks">
       THANK YOU!
@@ -371,11 +354,7 @@ function buildReceipt(t){
     </div>
 
     <div class="footer">
-      PRINTART CREATIVE
-    </div>
-
-    <div class="footer">
-      Creative Graphics & Signs
+      PRINTART CREATIVE GRAPHIC AND SIGNS
     </div>
 
   `;
