@@ -1,0 +1,28 @@
+PRINTART POS
+=============
+
+Files:
+- index.html
+- style.css
+- app.js
+- supabase_schema.sql
+
+SETUP
+1. Create a Supabase project.
+2. In Supabase SQL Editor, run supabase_schema.sql.
+3. In Supabase Authentication > Users, create the cashier/admin user accounts.
+4. Open app.js and replace:
+   YOUR_SUPABASE_URL
+   YOUR_SUPABASE_ANON_KEY
+   with the Project URL and anon/publishable key from Supabase.
+5. Serve the folder from a web server (or deploy to Vercel/GitHub Pages).
+6. Connect the 58mm thermal printer to the Windows PC and install its driver.
+7. Set the printer paper size to 58mm/receipt.
+8. Use POS > Complete Sale & Print.
+
+IMPORTANT
+- Do NOT put the Supabase service_role key in app.js.
+- Only use the browser-safe anon/publishable key.
+- The POS is separate from the PrintArt Quotation System.
+- Transaction data is stored in Supabase.
+- Printing is local through the Windows browser/thermal-printer driver.
