@@ -5,8 +5,8 @@
    2) Create users in Supabase Auth.
    3) Run the supplied SQL schema/policies.
 */
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://pzjsoduvrczugavmyitd.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6anNvZHV2cmN6dWdhdm15aXRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTE1OTUsImV4cCI6MjEwNjgyNzU5NX0.pJUrKQuTMvZIJp3HiISyVM9KQwbrRfnKI43xt3F0tCc";
 
 let supabaseClient = null;
 let products = [];
