@@ -222,13 +222,16 @@ function buildReceipt(t){
   // because the thermal printer may not support the ₱ character.
   const receiptMoney = n => `PHP ${Number(n || 0).toFixed(2)}`;
 
-  const itemRows = (t.items || []).map(x => `
-    <div class="receipt-item">
-      <span class="receipt-item-name">
-        ${esc(x.quantity)} x ${receiptMoney(x.price)}
-      </span>
+ const itemRows = (t.items || []).map(x => `
+  <div class="receipt-item">
+    <div class="receipt-item-product">
+      ${esc(x.name)}
     </div>
-  `).join("");
+    <div class="receipt-item-name">
+      ${esc(x.quantity)} x ${receiptMoney(x.price)}
+    </div>
+  </div>
+`).join("");
 
   $("receiptPrintArea").innerHTML = `
 
