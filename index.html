@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintArt POS</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <div class="brand-mark">PA</div>
+      <h1>PrintArt POS</h1>
+      <p>Sign in to continue</p>
+      <input id="loginEmail" type="email" placeholder="Email">
+      <input id="loginPassword" type="password" placeholder="Password">
+      <button id="loginBtn" class="btn primary">Sign In</button>
+      <div id="loginMessage" class="message"></div>
+      <small>Create users in Supabase Authentication → Users.</small>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">PA</div>
+      <div>
+        <strong>PrintArt POS</strong>
+        <span>Creative Graphics & Signs</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="cloudStatus" class="status offline">● Offline</span>
+      <span id="cashierName">Cashier</span>
+      <button id="logoutBtn" class="btn ghost">Logout</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="posPage">POS</button>
+    <button class="tab" data-page="dashboardPage">Dashboard</button>
+    <button class="tab" data-page="transactionsPage">Transactions</button>
+    <button class="tab" data-page="productsPage">Products</button>
+    <button class="tab" data-page="reportsPage">Reports</button>
+  </nav>
+
+  <main>
+    <section id="posPage" class="page active">
+      <div class="page-head">
+        <div>
+          <h2>Point of Sale</h2>
+          <p>Create a new transaction and print a 58mm receipt.</p>
+        </div>
+        <button id="clearCartBtn" class="btn danger-outline">Clear Cart</button>
+      </div>
+
+      <div class="pos-layout">
+        <div class="products-panel card">
+          <div class="toolbar">
+            <input id="productSearch" type="search" placeholder="Search product...">
+            <select id="categoryFilter"><option value="">All Categories</option></select>
+          </div>
+          <div id="productGrid" class="product-grid"></div>
+        </div>
+
+        <div class="cart-panel card">
+          <div class="cart-head">
+            <h3>Current Sale</h3>
+            <span id="cartCount">0 items</span>
+          </div>
+          <div id="cartItems" class="cart-items">
+            <div class="empty">No items in cart.</div>
+          </div>
+
+          <div class="summary">
+            <div><span>Subtotal</span><strong id="subtotal">₱0.00</strong></div>
+            <div class="total-row"><span>TOTAL</span><strong id="total">₱0.00</strong></div>
+          </div>
+
+          <div class="payment-box">
+            <label>Customer Name <span class="optional">(optional)</span></label>
+            <input id="customerName" type="text" placeholder="Walk-in Customer">
+
+            <label>Payment Method</label>
+            <div class="payment-methods">
+              <button class="pay-method active" data-method="Cash">Cash</button>
+              <button class="pay-method" data-method="GCash">GCash</button>
+              <button class="pay-method" data-method="Metrobank">Metrobank</button>
+            </div>
+
+            <label>Amount Received</label>
+            <input id="amountReceived" type="number" min="0" step="0.01" placeholder="0.00">
+
+            <div class="change-row">
+              <span>Change</span>
+              <strong id="changeAmount">₱0.00</strong>
+            </div>
+
+            <button id="completeSaleBtn" class="btn primary wide">Complete Sale & Print</button>
+          </div>
+          <div id="posMessage" class="message"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboardPage" class="page">
+      <div class="page-head">
+        <div><h2>Dashboard</h2><p>Today's POS performance.</p></div>
+        <button id="refreshDashboardBtn" class="btn secondary">Refresh</button>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span>Today's Sales</span><strong id="dashSales">₱0.00</strong></div>
+        <div class="stat-card"><span>Transactions</span><strong id="dashTransactions">0</strong></div>
+        <div class="stat-card cash"><span>Cash</span><strong id="dashCash">₱0.00</strong></div>
+        <div class="stat-card gcash"><span>GCash</span><strong id="dashGcash">₱0.00</strong></div>
+        <div class="stat-card metro"><span>Metrobank</span><strong id="dashMetro">₱0.00</strong></div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h3>Recent Transactions</h3><button class="btn small" data-page-jump="transactionsPage">View All</button></div>
+        <div id="recentTransactions"></div>
+      </div>
+    </section>
+
+    <section id="transactionsPage" class="page">
+      <div class="page-head">
+        <div><h2>Transaction History</h2><p>Review, reprint, or void completed sales.</p></div>
+        <button id="refreshTransactionsBtn" class="btn secondary">Refresh</button>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <input id="transactionSearch" type="search" placeholder="Search transaction number or customer...">
+          <input id="transactionDate" type="date">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Transaction</th><th>Date/Time</th><th>Customer</th><th>Payment</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="transactionTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="productsPage" class="page">
+      <div class="page-head">
+        <div><h2>Product Database</h2><p>Manage POS products and prices.</p></div>
+        <button id="addProductBtn" class="btn primary">+ Add Product</button>
+      </div>
+      <div class="card">
+        <div class="toolbar"><input id="productDbSearch" type="search" placeholder="Search products..."></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product</th><th>Category</th><th>Unit</th><th>Price</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="reportsPage" class="page">
+      <div class="page-head">
+        <div><h2>Sales Reports</h2><p>Monitor daily and monthly collections.</p></div>
+        <button id="refreshReportsBtn" class="btn secondary">Refresh</button>
+      </div>
+      <div class="report-controls card">
+        <label>Report Date <input id="reportDate" type="date"></label>
+        <button id="loadReportBtn" class="btn primary">Load Report</button>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span>Sales</span><strong id="reportSales">₱0.00</strong></div>
+        <div class="stat-card"><span>Transactions</span><strong id="reportTransactions">0</strong></div>
+        <div class="stat-card cash"><span>Cash</span><strong id="reportCash">₱0.00</strong></div>
+        <div class="stat-card gcash"><span>GCash</span><strong id="reportGcash">₱0.00</strong></div>
+        <div class="stat-card metro"><span>Metrobank</span><strong id="reportMetro">₱0.00</strong></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="productModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head"><h3 id="productModalTitle">Add Product</h3><button class="close-modal">×</button></div>
+      <input type="hidden" id="productId">
+      <label>Product Name<input id="productName" type="text"></label>
+      <label>Category<input id="productCategory" type="text" placeholder="Printing, Signage, etc."></label>
+      <label>Unit<input id="productUnit" type="text" placeholder="pc, sqft, set"></label>
+      <label>Price<input id="productPrice" type="number" min="0" step="0.01"></label>
+      <label class="check"><input id="productActive" type="checkbox" checked> Active</label>
+      <div class="modal-actions"><button class="btn secondary close-modal">Cancel</button><button id="saveProductBtn" class="btn primary">Save Product</button></div>
+      <div id="productMessage" class="message"></div>
+    </div>
+  </div>
+
+  <div id="receiptPrintArea" class="receipt-print"></div>
+  <script src="app.js"></script>
+</body>
+</html>
