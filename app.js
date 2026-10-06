@@ -233,15 +233,13 @@ function buildReceipt(t){
   `).join("");
 
   $("receiptPrintArea").innerHTML = `
-
-   <!-- COMPANY LOGO -->
-<img src="logo.png"
-  class="receipt-logo"
-  alt="PrintArt Creative Logo">
-
+  
 <!-- COMPANY NAME -->
 <div class="receipt-company">
-  PRINTART CREATIVE GRAPHIC & SIGNS
+  PRINTART CREATIVE
+</div>
+<div class="receipt-company">
+  GRAPHIC & SIGNS
 </div>
 <br>
     <div class="receipt-address">
