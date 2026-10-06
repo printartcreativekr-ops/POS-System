@@ -1,1144 +1,755 @@
-```css
-/* =========================================================
-   PRINTART POS SYSTEM
-   FINAL STYLE.CSS
-   ========================================================= */
+*{box-sizing:border-box}
 
-/* =========================================================
-   RESET
-   ========================================================= */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:#f4f6f8;
+  color:#18202a
 }
 
-html,
-body {
-  width: 100%;
-  min-height: 100%;
+.topbar{
+  height:72px;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f5f7;
-  color: #1f2937;
-  font-size: 14px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px
 }
 
-/* =========================================================
-   GENERAL
-   ========================================================= */
-
-button,
-input,
-select {
-  font-family: inherit;
+.brand strong{
+  display:block;
+  font-size:18px
 }
 
-button {
-  cursor: pointer;
+.brand span{
+  display:block;
+  color:#b9c0c8;
+  font-size:12px
 }
 
-.hidden {
-  display: none !important;
+.brand-mark{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background:#e8a11a;
+  color:#111;
+  display:grid;
+  place-items:center;
+  font-weight:900
 }
 
-.empty {
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  font-size:13px
 }
 
-.bold {
-  font-weight: 700;
+.status{
+  font-weight:700
 }
 
-.message {
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 6px;
-  font-size: 13px;
+.status.online{
+  color:#50d88a
 }
 
-.message.success {
-  background: #dcfce7;
-  color: #166534;
+.status.offline{
+  color:#ff7474
 }
 
-.message.error {
-  background: #fee2e2;
-  color: #991b1b;
+.tabs{
+  display:flex;
+  gap:4px;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:0 18px
 }
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
 
-.login-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #111827;
+.tab{
+  border:0;
+  background:none;
+  padding:15px 18px;
+  font-weight:700;
+  color:#69717c;
+  cursor:pointer
 }
 
-.login-box {
-  width: min(420px, 92%);
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+.tab.active{
+  color:#111;
+  border-bottom:3px solid #e8a11a
 }
 
-.login-logo {
-  display: block;
-  width: 90px;
-  height: auto;
-  margin: 0 auto 15px;
+main{
+  max-width:1450px;
+  margin:auto;
+  padding:24px
 }
 
-.login-box h1 {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 6px;
+.page{
+  display:none
 }
 
-.login-box p {
-  text-align: center;
-  color: #6b7280;
-  margin-bottom: 22px;
+.page.active{
+  display:block
 }
 
-/* =========================================================
-   APP HEADER
-   ========================================================= */
-
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #111111;
-  color: #ffffff;
-  min-height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 22px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+.page-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.page-head h2{
+  margin:0 0 5px
 }
 
-.brand img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
+.page-head p{
+  margin:0;
+  color:#737c87
 }
 
-.brand h1 {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
+.card,
+.stat-card{
+  background:#fff;
+  border:1px solid #e2e5e9;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(0,0,0,.04)
 }
 
-.brand small {
-  display: block;
-  color: #d1d5db;
-  font-size: 11px;
-  margin-top: 2px;
+.card{
+  padding:18px
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.pos-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(360px,.8fr);
+  gap:20px
 }
 
-.cashier {
-  font-size: 12px;
-  color: #d1d5db;
+.toolbar{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px
 }
 
-.cloud-status {
-  font-size: 12px;
-  font-weight: 700;
+.toolbar input,
+.toolbar select,
+input{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #d7dce2;
+  border-radius:9px;
+  font:inherit;
+  background:#fff
 }
 
-.cloud-status.online {
-  color: #22c55e;
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:12px;
+  max-height:650px;
+  overflow:auto
 }
 
-.cloud-status.offline {
-  color: #ef4444;
+.product-card{
+  border:1px solid #e1e5e9;
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+  cursor:pointer;
+  text-align:left
 }
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+.product-card:hover{
+  border-color:#e8a11a;
+  box-shadow:0 5px 14px rgba(0,0,0,.06)
+}
 
-.nav-tabs {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  gap: 4px;
-  padding: 0 18px;
-  overflow-x: auto;
+.product-card strong{
+  display:block;
+  min-height:40px
 }
 
-.tab {
-  border: none;
-  background: transparent;
-  padding: 14px 17px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #6b7280;
-  border-bottom: 3px solid transparent;
+.product-card small{
+  color:#7b838d
 }
 
-.tab:hover {
-  color: #111111;
+.product-price{
+  display:block;
+  margin-top:10px;
+  font-weight:900;
+  font-size:18px
 }
 
-.tab.active {
-  color: #111111;
-  border-bottom-color: #f59e0b;
+.cart-head,
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
 
-/* =========================================================
-   PAGE
-   ========================================================= */
+.cart-head h3,
+.section-title h3{
+  margin:0
+}
 
-.page {
-  display: none;
-  padding: 22px;
+.cart-items{
+  min-height:160px;
+  max-height:300px;
+  overflow:auto;
+  margin:10px 0
 }
 
-.page.active {
-  display: block;
+.cart-line{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  padding:12px 0;
+  border-bottom:1px solid #eee
 }
 
-.page-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 20px;
+.cart-line-title{
+  font-weight:700
 }
 
-.page-title h2 {
-  font-size: 22px;
-  font-weight: 800;
+.cart-controls{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:7px
 }
 
-.page-title p {
-  color: #6b7280;
-  margin-top: 4px;
-  font-size: 13px;
+.qty-btn{
+  width:28px;
+  height:28px;
+  border:1px solid #ddd;
+  background:#f7f7f7;
+  border-radius:6px;
+  cursor:pointer
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+.remove-btn{
+  border:0;
+  background:none;
+  color:#d54b4b;
+  cursor:pointer;
+  margin-left:8px
+}
 
-.btn {
-  border: none;
-  border-radius: 7px;
-  padding: 10px 15px;
-  background: #111111;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 13px;
-  transition: 0.2s ease;
+.summary{
+  border-top:1px solid #ddd;
+  padding-top:12px
 }
 
-.btn:hover {
-  opacity: 0.88;
+.summary>div{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 0
 }
 
-.btn.small {
-  padding: 7px 10px;
-  font-size: 12px;
+.total-row{
+  font-size:22px;
+  font-weight:900
 }
 
-.btn.primary {
-  background: #f59e0b;
-  color: #111111;
+.payment-box{
+  margin-top:15px
 }
 
-.btn.success {
-  background: #16a34a;
+.payment-box label,
+.modal-card label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin:10px 0 6px
 }
 
-.btn.danger {
-  background: #dc2626;
+.optional{
+  color:#999;
+  font-weight:400
 }
 
-.btn.secondary {
-  background: #6b7280;
+.payment-methods{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px
 }
 
-.btn.blue {
-  background: #2563eb;
+.pay-method{
+  padding:10px;
+  border:1px solid #d8dde2;
+  background:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700
 }
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
+.pay-method.active{
+  background:#111;
+  color:#fff;
+  border-color:#111
+}
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+.change-row{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  font-size:18px
 }
 
-.stat-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 18px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+.change-row strong{
+  color:#18854a
 }
 
-.stat-card .label {
-  color: #6b7280;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
+.btn{
+  border:0;
+  border-radius:9px;
+  padding:10px 15px;
+  font-weight:800;
+  cursor:pointer
 }
 
-.stat-card .value {
-  font-size: 25px;
-  font-weight: 800;
-  margin-top: 8px;
+.btn.primary{
+  background:#e8a11a;
+  color:#111
 }
 
-.stat-card.cash {
-  border-left: 5px solid #facc15;
+.btn.secondary{
+  background:#e9edf1;
+  color:#20252b
 }
 
-.stat-card.gcash {
-  border-left: 5px solid #2563eb;
+.btn.ghost{
+  background:transparent;
+  color:#fff;
+  border:1px solid #555
 }
 
-.stat-card.metro {
-  border-left: 5px solid #6b7280;
+.btn.danger-outline{
+  background:#fff;
+  color:#c83f3f;
+  border:1px solid #e5a0a0
 }
 
-.stat-card.sales {
-  border-left: 5px solid #16a34a;
+.btn.wide{
+  width:100%;
+  padding:13px
 }
 
-.stat-card.transactions {
-  border-left: 5px solid #f59e0b;
+.btn.small{
+  padding:7px 10px;
+  font-size:12px
 }
 
-/* =========================================================
-   CARDS
-   ========================================================= */
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  margin-bottom:20px
+}
 
-.card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+.stat-card{
+  padding:18px
 }
 
-.card-title {
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 15px;
+.stat-card span{
+  display:block;
+  color:#707985;
+  font-size:13px
 }
 
-/* =========================================================
-   POS LAYOUT
-   ========================================================= */
+.stat-card strong{
+  display:block;
+  font-size:24px;
+  margin-top:8px
+}
 
-.pos-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(350px, 0.9fr);
-  gap: 18px;
+.stat-card.cash{
+  border-top:4px solid #e5b52c
 }
 
-.pos-left,
-.pos-right {
-  min-width: 0;
+.stat-card.gcash{
+  border-top:4px solid #2e8ee8
 }
 
-/* =========================================================
-   SEARCH / FILTER
-   ========================================================= */
+.stat-card.metro{
+  border-top:4px solid #737b85
+}
 
-.search-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+.table-wrap{
+  overflow:auto
 }
 
-.search-row input,
-.search-row select {
-  flex: 1;
+table{
+  width:100%;
+  border-collapse:collapse
 }
 
-input,
-select {
-  width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 7px;
-  padding: 10px 11px;
-  background: #ffffff;
-  color: #111827;
-  outline: none;
+th,
+td{
+  text-align:left;
+  padding:12px 10px;
+  border-bottom:1px solid #eee;
+  font-size:13px;
+  white-space:nowrap
 }
 
-input:focus,
-select:focus {
-  border-color: #f59e0b;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+th{
+  background:#f7f8f9
 }
 
-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: #374151;
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800
 }
 
-/* =========================================================
-   PRODUCT GRID
-   ========================================================= */
+.badge.completed{
+  background:#e6f7ed;
+  color:#19733f
+}
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
-  gap: 12px;
+.badge.voided{
+  background:#fde9e9;
+  color:#a72e2e
 }
 
-.product-card {
-  text-align: left;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 15px;
-  min-height: 115px;
-  transition: 0.2s ease;
+.report-controls{
+  display:flex;
+  gap:12px;
+  align-items:end;
+  margin-bottom:18px
 }
 
-.product-card:hover {
-  border-color: #f59e0b;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+.report-controls label{
+  font-size:13px;
+  font-weight:700
 }
 
-.product-card strong {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 7px;
+.report-controls input{
+  display:block;
+  margin-top:5px
 }
 
-.product-card small {
-  display: block;
-  color: #6b7280;
-  min-height: 18px;
+.empty{
+  text-align:center;
+  color:#9098a2;
+  padding:40px 10px
 }
 
-.product-price {
-  display: block;
-  margin-top: 12px;
-  font-weight: 800;
-  color: #111111;
+.message{
+  margin-top:10px;
+  font-size:13px;
+  min-height:18px
 }
 
-/* =========================================================
-   CART
-   ========================================================= */
+.message.error{
+  color:#c43e3e
+}
 
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+.message.success{
+  color:#19763f
 }
 
-.cart-count {
-  color: #6b7280;
-  font-size: 12px;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:grid;
+  place-items:center;
+  padding:20px;
+  z-index:20
 }
 
-.cart-items {
-  max-height: 380px;
-  overflow-y: auto;
+.modal.hidden{
+  display:none
 }
 
-.cart-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 13px 0;
-  border-bottom: 1px solid #eeeeee;
+.modal-card{
+  width:min(500px,100%);
+  background:#fff;
+  border-radius:14px;
+  padding:22px
 }
 
-.cart-line-title {
-  font-weight: 700;
-  margin-bottom: 4px;
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
 
-.cart-line small {
-  color: #6b7280;
+.close-modal{
+  border:0;
+  background:none;
+  font-size:28px;
+  cursor:pointer
 }
 
-.cart-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:20px
 }
 
-.qty-btn {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #d1d5db;
-  border-radius: 5px;
-  background: #ffffff;
-  font-weight: 800;
+.check{
+  display:flex!important;
+  align-items:center;
+  gap:8px
 }
 
-.remove-btn {
-  border: none;
-  background: transparent;
-  color: #dc2626;
-  font-size: 11px;
-  margin-left: 5px;
+.check input{
+  width:auto
 }
 
-/* =========================================================
-   PAYMENT
-   ========================================================= */
+.login-overlay{
+  position:fixed;
+  inset:0;
+  background:#111;
+  z-index:100;
+  display:grid;
+  place-items:center
+}
 
-.payment-methods {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin: 12px 0;
+.login-overlay.hidden{
+  display:none
 }
 
-.pay-method {
-  padding: 11px 8px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  border-radius: 7px;
-  font-weight: 700;
-  font-size: 12px;
+.login-card{
+  width:min(390px,92vw);
+  background:#fff;
+  border-radius:18px;
+  padding:30px
 }
 
-.pay-method.active {
-  border-color: #111111;
-  background: #111111;
-  color: #ffffff;
+.login-card h1{
+  margin:10px 0 4px
 }
 
-.pay-method[data-method="Cash"].active {
-  background: #eab308;
-  color: #111111;
-  border-color: #eab308;
+.login-card p{
+  color:#777
 }
 
-.pay-method[data-method="GCash"].active {
-  background: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
+.login-card input{
+  margin:6px 0
 }
 
-.pay-method[data-method="Metrobank"].active {
-  background: #6b7280;
-  color: #ffffff;
-  border-color: #6b7280;
+.login-card .btn{
+  width:100%;
+  margin-top:8px
 }
 
 /* =========================================================
-   TOTALS
+   RECEIPT
+   Only receipt printing styles are revised below.
    ========================================================= */
 
-.totals {
-  margin-top: 15px;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 12px;
+.receipt-print{
+  display:none
 }
 
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-}
-
-.total-row.grand-total {
-  font-size: 20px;
-  font-weight: 800;
-  padding-top: 12px;
-  margin-top: 6px;
-  border-top: 2px solid #111111;
-}
-
-.change-box {
-  background: #f3f4f6;
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 10px;
-}
-
-.change-box strong {
-  font-size: 18px;
-}
 
 /* =========================================================
-   TRANSACTION TABLE
+   THERMAL RECEIPT PRINT
    ========================================================= */
 
-.table-wrap {
-  width: 100%;
-  overflow-x: auto;
-}
+@media print{
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  text-align: left;
-  background: #f3f4f6;
-  color: #374151;
-  font-size: 11px;
-  text-transform: uppercase;
-  padding: 11px 10px;
-  white-space: nowrap;
-}
-
-td {
-  padding: 11px 10px;
-  border-bottom: 1px solid #eeeeee;
-  font-size: 13px;
-  vertical-align: middle;
-}
-
-tr:hover td {
-  background: #fafafa;
-}
-
-/* =========================================================
-   BADGES
-   ========================================================= */
-
-.badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.badge.completed {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge.voided {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-/* =========================================================
-   REPORTS
-   ========================================================= */
-
-.report-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.report-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 18px;
-}
-
-.report-card h3 {
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #6b7280;
-  margin-bottom: 8px;
-}
-
-.report-card strong {
-  font-size: 23px;
-}
-
-/* =========================================================
-   PRODUCT DATABASE
-   ========================================================= */
-
-.product-toolbar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.product-toolbar input {
-  max-width: 350px;
-}
-
-/* =========================================================
-   MODAL
-   ========================================================= */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 5000;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal-content {
-  width: min(500px, 100%);
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 22px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.modal-header h3 {
-  font-size: 18px;
-}
-
-.close-modal {
-  border: none;
-  background: transparent;
-  font-size: 25px;
-  color: #6b7280;
-}
-
-.form-group {
-  margin-bottom: 13px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-/* =========================================================
-   RECEIPT PREVIEW
-   ========================================================= */
-
-.receipt-preview {
-  background: #e5e7eb;
-  padding: 25px;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#receiptPrintArea {
-  width: 58mm;
-  max-width: 58mm;
-  background: #ffffff;
-  color: #000000;
-  padding: 4mm;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 10px;
-  line-height: 1.35;
-  text-align: center;
-}
-
-/* =========================================================
-   RECEIPT LOGO
-   ========================================================= */
-
-.receipt-logo {
-  display: block;
-  width: 80px;
-  height: auto;
-  max-height: 55px;
-  margin: 0 auto 8px auto;
-  object-fit: contain;
-}
-
-/* =========================================================
-   RECEIPT COMPANY NAME
-   ========================================================= */
-
-.receipt-company {
-  width: 100%;
-  text-align: center;
-  font-weight: 800;
-  font-size: 11px;
-  line-height: 1.2;
-  letter-spacing: 0.2px;
-  margin: 0 auto 6px auto;
-}
-
-/* =========================================================
-   RECEIPT TITLE
-   ========================================================= */
-
-.receipt-title {
-  width: 100%;
-  text-align: center;
-  font-weight: 800;
-  font-size: 12px;
-  line-height: 1.2;
-  letter-spacing: 0.5px;
-  margin: 8px auto;
-}
-
-/* =========================================================
-   RECEIPT ADDRESS / CONTACT
-   ========================================================= */
-
-.receipt-address {
-  width: 100%;
-  text-align: center;
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-.receipt-contact {
-  width: 100%;
-  text-align: center;
-  font-size: 10px;
-  line-height: 1.4;
-}
-
-/* =========================================================
-   RECEIPT DIVIDER
-   ========================================================= */
-
-.line {
-  width: 100%;
-  border-top: 1px dashed #000000;
-  margin: 8px 0;
-}
-
-/* =========================================================
-   RECEIPT INFORMATION
-   ========================================================= */
-
-.receipt-info {
-  width: 100%;
-  text-align: center;
-  line-height: 1.45;
-}
-
-.receipt-info .bold {
-  font-weight: 800;
-}
-
-/* =========================================================
-   RECEIPT ITEMS
-   ========================================================= */
-
-.items {
-  width: 100%;
-  text-align: center;
-}
-
-.item {
-  padding: 5px 0;
-}
-
-.item-name {
-  font-weight: 700;
-  font-size: 10px;
-  text-align: center;
-  word-break: break-word;
-}
-
-.item-detail {
-  font-size: 9px;
-  text-align: center;
-}
-
-/* =========================================================
-   RECEIPT TOTAL
-   ========================================================= */
-
-.total-box {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 800;
-  font-size: 13px;
-  padding: 5px 0;
-}
-
-.total-label {
-  font-weight: 800;
-}
-
-.total-amount {
-  font-weight: 800;
-}
-
-/* =========================================================
-   RECEIPT PAYMENT
-   ========================================================= */
-
-.payment-section {
-  width: 100%;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.payment-section .bold {
-  font-weight: 800;
-}
-
-/* =========================================================
-   RECEIPT THANK YOU
-   ========================================================= */
-
-.thanks {
-  width: 100%;
-  text-align: center;
-  font-weight: 800;
-  font-size: 12px;
-  margin-top: 8px;
-}
-
-.footer {
-  width: 100%;
-  text-align: center;
-  font-size: 9px;
-  line-height: 1.4;
-}
-
-/* =========================================================
-   PRINT
-   ========================================================= */
-
-@media print {
-
-  @page {
-    size: 58mm auto;
-    margin: 0;
+  body>*:not(#receiptPrintArea){
+    display:none!important
   }
 
-  html,
-  body {
-    width: 58mm;
-    margin: 0;
-    padding: 0;
-    background: #ffffff;
+  .receipt-print{
+    display:block!important;
+    width:58mm;
+    margin:0;
+    padding:0 2mm;
+    font-family:"Courier New",monospace;
+    font-size:10pt;
+    color:#000
   }
 
-  body * {
-    visibility: hidden !important;
+  .receipt-print *{
+    color:#000!important
   }
 
-  #receiptPrintArea,
-  #receiptPrintArea * {
-    visibility: visible !important;
+  /* GENERAL CENTER ALIGNMENT */
+  .receipt-print .center{
+    text-align:center
   }
 
-  #receiptPrintArea {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 58mm;
-    max-width: 58mm;
-    min-height: 0;
-    padding: 3mm;
-    margin: 0;
-    background: #ffffff;
-    color: #000000;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+  /* =====================================================
+     LOGO
+     ===================================================== */
+
+  .receipt-print .logo{
+    display:block;
+    width:100%;
+    text-align:center;
+    font-size:14pt;
+    font-weight:900;
+    margin:0 auto 5px auto
   }
 
-  .receipt-logo {
-    width: 75px;
-    max-height: 50px;
-    margin-left: auto;
-    margin-right: auto;
+  .receipt-print .logo img{
+    display:block;
+    margin:0 auto;
+    max-width:40mm;
+    max-height:20mm;
+    object-fit:contain
   }
 
-  .receipt-company {
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-left: auto;
-    margin-right: auto;
+  /* =====================================================
+     COMPANY NAME
+     PRINTART CREATIVE GRAPHIC AND SIGNS
+     ===================================================== */
+
+  .receipt-print .receipt-company{
+    width:100%;
+    text-align:center;
+    font-size:10pt;
+    font-weight:900;
+    line-height:1.2;
+    margin:0 auto 5px auto
   }
 
-  .receipt-title {
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-left: auto;
-    margin-right: auto;
+  /* =====================================================
+     RECEIPT TITLE
+     OFFICIAL RECEIPT TRANSACTION
+     ===================================================== */
+
+  .receipt-print .receipt-title{
+    width:100%;
+    text-align:center;
+    font-size:11pt;
+    font-weight:900;
+    line-height:1.2;
+    margin:5px auto
   }
 
-  .receipt-address,
-  .receipt-contact,
-  .receipt-info,
-  .items,
-  .item-name,
-  .item-detail,
-  .payment-section,
-  .thanks,
-  .footer {
-    text-align: center;
+  /* =====================================================
+     TEXT
+     ===================================================== */
+
+  .receipt-print .bold{
+    font-weight:700
   }
 
-  .line {
-    width: 100%;
-    border-top: 1px dashed #000000;
-    margin: 7px 0;
+  /* =====================================================
+     DIVIDER
+     ===================================================== */
+
+  .receipt-print .line{
+    border-top:1px dashed #000;
+    margin:5px 0
   }
 
-  .total-box {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    text-align: left;
+  /* =====================================================
+     ROW
+     ===================================================== */
+
+  .receipt-print .r{
+    display:flex;
+    justify-content:space-between;
+    gap:5px
+  }
+
+  /* =====================================================
+     ITEMS
+     ===================================================== */
+
+  .receipt-print .items{
+    margin:5px 0
+  }
+
+  .receipt-print .item-name{
+    max-width:34mm;
+    overflow:hidden
+  }
+
+  /* =====================================================
+     TOTAL
+     ===================================================== */
+
+  .receipt-print .total{
+    font-size:13pt;
+    font-weight:700
+  }
+
+  /* =====================================================
+     THANK YOU
+     ===================================================== */
+
+  .receipt-print .thanks{
+    margin-top:10px;
+    text-align:center
+  }
+
+  /* =====================================================
+     PAPER SIZE
+     ===================================================== */
+
+  @page{
+    size:58mm auto;
+    margin:0
   }
 }
+
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media(max-width:1000px){
 
-  .dashboard-grid,
-  .report-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .pos-layout{
+    grid-template-columns:1fr
   }
 
-  .pos-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-
-  .app-header {
-    padding: 10px 14px;
-  }
-
-  .brand h1 {
-    font-size: 15px;
-  }
-
-  .header-right {
-    gap: 7px;
-  }
-
-  .cashier {
-    display: none;
-  }
-
-  .page {
-    padding: 14px;
-  }
-
-  .dashboard-grid,
-  .report-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .payment-methods {
-    grid-template-columns: 1fr;
-  }
-
-  .search-row,
-  .product-toolbar {
-    flex-direction: column;
-  }
-
-  .product-toolbar input {
-    max-width: none;
+  .stat-grid{
+    grid-template-columns:repeat(2,1fr)
   }
 }
 
-@media (max-width: 450px) {
 
-  .dashboard-grid,
-  .report-grid {
-    grid-template-columns: 1fr;
+@media(max-width:650px){
+
+  main{
+    padding:14px
   }
 
-  .product-grid {
-    grid-template-columns: 1fr;
+  .topbar{
+    padding:0 12px
   }
 
-  .page-title {
-    flex-direction: column;
-    align-items: flex-start;
+  .tabs{
+    overflow:auto
+  }
+
+  .tab{
+    padding:13px 12px
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr
+  }
+
+  .payment-methods{
+    grid-template-columns:1fr
+  }
+
+  .report-controls{
+    align-items:stretch;
+    flex-direction:column
   }
 }
-```
-
-### Important
-
-After replacing `style.css`, make sure your `app.js` header is also changed to:
-
-```javascript
-<div class="receipt-company">
-  PRINTART CREATIVE GRAPHIC AND SIGNS
-</div>
-
-<div class="receipt-title">
-  OFFICIAL RECEIPT TRANSACTION
-</div>
-```
-
-Otherwise, the CSS will center the existing text, but it **will not change the wording**.
-
-Also, your current `app.js` has:
-
-```javascript
-<img src="logo"
-```
-
-I recommend changing that to:
-
-```javascript
-<img src="logo.png"
-```
-
-if your logo file is actually named `logo.png`. The uploaded code currently shows the `src` as `"logo"`.
